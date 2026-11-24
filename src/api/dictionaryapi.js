@@ -1,4 +1,4 @@
-const apiUrl = 'http://localhost:3000';
+const apiUrl = 'https://relay.storepulse-ai.com';
 
 async function isWordReal_old(word) {
   const wordLower = word.toLowerCase();

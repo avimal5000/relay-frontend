@@ -64,7 +64,7 @@ The app uses the deployed backend at `https://relay-backend-z1ua.onrender.com` b
 To use a local backend instead, create `.env.local` in the project root:
 
 ```bash
-VITE_API_URL=http://localhost:3000
+VITE_API_URL=https://relay.storepulse-ai.com
 ```
 
 ## Deployment
