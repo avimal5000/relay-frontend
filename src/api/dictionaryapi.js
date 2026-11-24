@@ -1,4 +1,6 @@
-export async function isWordReal(word) {
+const apiUrl = 'http://localhost:3000';
+
+async function isWordReal_old(word) {
   const wordLower = word.toLowerCase();
   try {
     const res = await fetch(
@@ -18,7 +20,7 @@ export async function isWordReal(word) {
   }
 }
 
-export async function isChainable(word) {
+async function isChainable_old(word) {
   const lastTwo = word.slice(-2).toLowerCase();
   try {
     const url = `https://api.datamuse.com/words?sp=${lastTwo}*&max=10`;
@@ -32,7 +34,7 @@ export async function isChainable(word) {
   }
 }
 
-export async function validateWord(word) {
+async function validateWord_old(word) {
   const real = await isWordReal(word);
   if (!real) {
     return { valid: false, reason: 'NOT_A_WORD' };
@@ -45,4 +47,41 @@ export async function validateWord(word) {
   }
 
   return { valid: true };
+}
+
+
+export async function isWordReal(word) {
+  const wordLower = word.toLowerCase();
+  try {
+    const res = await fetch(`${apiUrl}/dictionary?word=${wordLower}`);
+    const data = await res.json();
+
+    // Datamuse returns an exact match only if the word exists
+    // and the score will be high enough
+    return data.valid;
+  } catch (error) {
+    console.error('Word check failed:', error);
+    return false;
+  }
+}
+
+
+export async function validateWord(word) {
+  const real = await isWordReal(word);
+
+  return real;
+}
+
+
+export async function isChainable(word) {
+  const lastTwo = word.slice(-2).toLowerCase();
+  try {
+    const url = `${apiUrl}/dictionary/is-chainable?word=${lastTwo}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    return data.isChainable;
+  } catch (error) {
+    console.error('Chainability check failed:', error);
+    return false;
+  }
 }
