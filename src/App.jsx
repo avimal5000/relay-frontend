@@ -5,6 +5,7 @@ import MultiplayerLobby from './components/multiplayer/MultiplayerLobby.jsx'
 import MultiplayerRoom from './components/multiplayer/MultiplayerRoom.jsx'
 import MultiplayerGame from './components/multiplayer/MultiplayerGame.jsx'
 import MultiplayerResults from './components/multiplayer/MultiplayerResults.jsx'
+import { API_URL, SOCKET_URL } from './api/config.js'
 
 const ACTIVE_ROOM_KEY = 'relay-active-room'
 const TOAST_STORAGE_KEY = 'relay-room-toast'
@@ -12,8 +13,6 @@ const LEGACY_ROOM_STORAGE_KEY = 'relay-open-rooms'
 const AUTH_STORAGE_KEY = 'relay-auth'
 // Every screen that belongs to being inside a room.
 const ROOM_SCREENS = ['multiplayer-room', 'multiplayer-game', 'multiplayer-results']
-const SOCKET_URL = 'ws://localhost:3000/multiplayer'
-const API_URL = 'http://localhost:3000'
 
 function readActiveRoomFromStorage() {
   try {

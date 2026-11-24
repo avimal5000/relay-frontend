@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3000";
+import { API_URL as BASE_URL } from "./config.js";
 
 /**
  * Headers for the backend's authenticate middleware.
