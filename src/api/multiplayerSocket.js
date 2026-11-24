@@ -1,4 +1,4 @@
-const SOCKET_URL = 'ws://localhost:3000/multiplayer';
+import { SOCKET_URL } from './config.js';
 
 export function createMultiplayerSocket() {
   const socket = new WebSocket(SOCKET_URL);
