@@ -719,6 +719,7 @@ function App() {
         myPlayerId={myPlayerId}
         toast={toast}
         onSubmitWord={handleSubmitWord}
+        onLeave={handleLeaveRoom}
       />
     )
   }

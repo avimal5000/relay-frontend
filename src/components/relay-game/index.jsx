@@ -306,6 +306,20 @@ export default function RelayGame({ auth, onMultiplayer }) {
               >
                 🔄
               </button>
+
+              <button
+                onClick={resetGame}
+                title="Leave game"
+                style={{
+                  height: 42, borderRadius: 12, padding: "0 14px",
+                  border: "2px solid rgba(255,99,99,0.5)",
+                  background: "rgba(255,99,99,0.15)", cursor: "pointer",
+                  color: "#fff", fontWeight: 800, fontSize: 12, letterSpacing: "0.12em",
+                  fontFamily: font,
+                }}
+              >
+                LEAVE
+              </button>
             </div>
 
             <div style={{ textAlign: "right", lineHeight: 1 }}>

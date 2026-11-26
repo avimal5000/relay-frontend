@@ -9,7 +9,7 @@ import useCountdown, { formatClock } from './useCountdown.js';
 const LOW_TIME_MS = 15_000;
 const getFragment = (word) => word.slice(-2).toUpperCase();
 
-export default function MultiplayerGame({ game, run, scoreboard, myPlayerId, toast, onSubmitWord }) {
+export default function MultiplayerGame({ game, run, scoreboard, myPlayerId, toast, onSubmitWord, onLeave }) {
   const [input, setInput] = useState('');
   const [goldFlash, setGoldFlash] = useState(false);
   const [flyingWord, setFlyingWord] = useState(null);
@@ -127,6 +127,7 @@ export default function MultiplayerGame({ game, run, scoreboard, myPlayerId, toa
 
       {/* Top bar: timer + score */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 14 }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 14 }}>
         <div style={{ lineHeight: 1 }}>
           <div style={{
             display: 'inline-block',
@@ -143,6 +144,18 @@ export default function MultiplayerGame({ game, run, scoreboard, myPlayerId, toa
           <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.18em', color: C.muted, marginTop: 2 }}>
             TIME LEFT
           </div>
+        </div>
+        <button
+          onClick={onLeave}
+          title="Leave game"
+          style={{
+            height: 38, borderRadius: 12, padding: '0 14px', cursor: 'pointer',
+            border: '2px solid rgba(255,99,99,0.5)', background: 'rgba(255,99,99,0.15)',
+            color: '#fff', fontWeight: 800, fontSize: 12, letterSpacing: '0.12em', fontFamily: 'inherit',
+          }}
+        >
+          LEAVE
+        </button>
         </div>
 
         <div style={{ textAlign: 'right', lineHeight: 1 }}>
