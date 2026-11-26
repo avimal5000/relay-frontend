@@ -18,7 +18,7 @@ import { submitScore } from "../../api/scoresapi.js";
 const font = "'Poppins', 'Nunito', sans-serif";
 const getFragment = (word) => word.slice(-2).toUpperCase();
 
-export default function RelayGame({ auth }) {
+export default function RelayGame({ auth, onMultiplayer }) {
   const [wordsUsed, setWordsUsed] = useState([]);
   const [fragment, setFragment] = useState(() => getRandomFragment());
   const [score, setScore] = useState(0);
@@ -258,7 +258,7 @@ export default function RelayGame({ auth }) {
               transform: menuVisible ? "scale(1)" : "scale(0.96)",
               transition: "opacity 0.4s ease, transform 0.4s ease",
             }}>
-              <Menu onPlay={handlePlay} auth={auth} />
+              <Menu onPlay={handlePlay} onMultiplayer={onMultiplayer} auth={auth} />
             </div>
           )}
 

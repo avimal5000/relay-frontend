@@ -166,7 +166,7 @@ function HowToPlay({ onBack }) {
   );
 }
 
-export default function Menu({ onPlay, auth }) {
+export default function Menu({ onPlay, onMultiplayer, auth }) {
   const [showHowTo, setShowHowTo] = useState(false);
   const [showLeaderboard, setShowLeaderboard] = useState(false);
 
@@ -349,6 +349,36 @@ export default function Menu({ onPlay, auth }) {
           onMouseUp={e => e.currentTarget.style.transform = "translateY(-2px)"}
         >
           ▶  PLAY
+        </button>
+
+        {/* Multiplayer */}
+        <button
+          className="menu-btn-secondary menu-fade-4"
+          onClick={onMultiplayer}
+          style={{
+            width: "100%",
+            background: "rgba(255,255,255,0.08)",
+            border: "2px solid rgba(255,255,255,0.15)",
+            borderRadius: 14,
+            padding: 18,
+            fontSize: 14,
+            fontWeight: 800,
+            letterSpacing: "0.18em",
+            color: C.white,
+            cursor: "pointer",
+            textTransform: "uppercase",
+            fontFamily: font,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 10,
+          }}
+          onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.15)"}
+          onMouseLeave={e => e.currentTarget.style.background = "rgba(255,255,255,0.08)"}
+          onMouseDown={e => e.currentTarget.style.transform = "scale(0.98)"}
+          onMouseUp={e => e.currentTarget.style.transform = "translateY(-1px)"}
+        >
+          MULTIPLAYER
         </button>
 
         {/* How to Play */}

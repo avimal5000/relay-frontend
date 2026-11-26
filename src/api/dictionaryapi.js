@@ -58,7 +58,8 @@ export async function isWordReal(word) {
 
     // Datamuse returns an exact match only if the word exists
     // and the score will be high enough
-    return data.valid;
+    // UNCHAINABLE means the word is real but has no follow-up; the game handles that as a game over.
+    return data.valid || data.reason === 'UNCHAINABLE';
   } catch (error) {
     console.error('Word check failed:', error);
     return false;

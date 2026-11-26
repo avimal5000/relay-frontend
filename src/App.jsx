@@ -80,7 +80,7 @@ function createRoomCode() {
 
 function App() {
   const [auth, setAuth] = useState(() => readAuthFromStorage())
-  const [screen, setScreen] = useState(() => (readAuthFromStorage()?.email ? 'menu' : 'login'))
+  const [screen, setScreen] = useState(() => (readAuthFromStorage()?.email ? 'solo' : 'login'))
   const [roomId, setRoomId] = useState(() => readActiveRoomFromStorage())
   const [playerName, setPlayerName] = useState('Player')
   const [rooms, setRooms] = useState([])
@@ -207,7 +207,7 @@ function App() {
         const nextAuth = { email: data.user?.email || email, authToken: data.authToken }
         setAuth(nextAuth)
         writeAuthToStorage(nextAuth)
-        setScreen('menu')
+        setScreen('solo')
         showToast('Logged in!', 'success')
       })
       .catch((err) => {
@@ -607,7 +607,7 @@ function App() {
   }
 
   const handleBackToMenu = () => {
-    setScreen('menu')
+    setScreen('solo')
     setRoomId('')
     writeActiveRoomToStorage('')
   }
@@ -704,7 +704,7 @@ function App() {
     return (
       <>
         <section id="center">
-          <RelayGame auth={auth} />
+          <RelayGame auth={auth} onMultiplayer={() => setScreen('multiplayer-lobby')} />
         </section>
       </>
     )
@@ -764,116 +764,7 @@ function App() {
     )
   }
 
-  return (
-    <div style={{
-      minHeight: '100vh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      background: '#090611',
-      color: '#f7f1ff',
-      fontFamily: 'Poppins, sans-serif',
-      position: 'relative',
-    }}>
-      {toast.message && (
-        <div style={{
-          position: 'fixed',
-          top: 28,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          background: toast.type === 'error' ? '#ff5a5f' : '#f5c518',
-          color: toast.type === 'error' ? '#fff5f5' : '#1a1328',
-          borderRadius: 999,
-          padding: '12px 22px',
-          fontWeight: 800,
-          letterSpacing: '0.04em',
-          boxShadow: '0 12px 32px rgba(0,0,0,0.28)',
-          zIndex: 120,
-          whiteSpace: 'nowrap',
-        }}>
-          {toast.message}
-        </div>
-      )}
-      <div style={{
-        width: 'min(92vw, 420px)',
-        background: '#151225',
-        border: '1px solid rgba(255,255,255,0.08)',
-        borderRadius: 24,
-        boxShadow: '0 24px 60px rgba(0,0,0,0.5)',
-        padding: 28,
-      }}>
-        <p style={{ margin: 0, color: '#d5b8ff', letterSpacing: '0.18em', fontSize: 12, textTransform: 'uppercase' }}>
-          Relay Game
-        </p>
-
-        <h1 style={{ margin: '14px 0 10px', fontSize: 36, lineHeight: 1.1 }}>Choose a mode</h1>
-
-        <p style={{ margin: '0 0 24px', color: '#c8c2dc', lineHeight: 1.6 }}>
-          Start with the classic solo game, or enter the multiplayer lobby and match with other players.
-        </p>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          <button
-            onClick={() => setScreen('solo')}
-            style={{
-              background: '#f5c518',
-              color: '#1a1328',
-              border: 'none',
-              borderRadius: 12,
-              padding: '16px 18px',
-              fontSize: 16,
-              fontWeight: 800,
-              cursor: 'pointer',
-            }}
-          >
-            Play Solo
-          </button>
-
-          <button
-            onClick={() => setScreen('multiplayer-lobby')}
-            style={{
-              background: 'transparent',
-              color: '#f7f1ff',
-              border: '1px solid rgba(255,255,255,0.18)',
-              borderRadius: 12,
-              padding: '16px 18px',
-              fontSize: 16,
-              fontWeight: 700,
-              cursor: 'pointer',
-            }}
-          >
-            Play Multiplayer
-          </button>
-        </div>
-
-        <div style={{
-          marginTop: 24,
-          paddingTop: 20,
-          borderTop: '1px solid rgba(255,255,255,0.08)',
-        }}>
-          <p style={{ margin: 0, color: '#c8c2dc', fontSize: 14 }}>
-            Logged in as <strong style={{ color: '#f7f1ff' }}>{auth?.email}</strong>
-            {' · '}
-            <button
-              type="button"
-              onClick={handleLogout}
-              style={{
-                background: 'none',
-                border: 'none',
-                color: '#d5b8ff',
-                textDecoration: 'underline',
-                cursor: 'pointer',
-                fontSize: 14,
-                padding: 0,
-              }}
-            >
-              Log out
-            </button>
-          </p>
-        </div>
-      </div>
-    </div>
-  )
+  return null
 }
 
 export default App
