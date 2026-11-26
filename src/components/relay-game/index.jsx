@@ -91,12 +91,23 @@ export default function RelayGame({ auth }) {
     setTimeout(() => setFlyingWord(null), 800);
   };
 
+  const [submitting, setSubmitting] = useState(false);
+  const submitLock = useRef(false); // ref: blocks same-tick repeat Enters before state updates
+
   const submitWord = async () => {
+    if (submitLock.current) return;
+    submitLock.current = true;
+    setSubmitting(true);
+    try { await doSubmit(); }
+    finally { submitLock.current = false; setSubmitting(false); }
+  };
+
+  const doSubmit = async () => {
     const word = input.trim().toUpperCase();
     if (!word) return;
 
     const result = await validateWord(word);
-    if (!result.valid && result.reason === "NOT_A_WORD") {
+    if (!result) {
       showToast("Not a real word!", "error");
       setInput("");
       return;
@@ -120,7 +131,8 @@ export default function RelayGame({ auth }) {
     triggerFlyingWord(word);
     triggerGoldFlash();
 
-    setTimeout(() => {
+    await new Promise(r => setTimeout(r, 300));
+    {
       setWordsUsed(prev => [...prev, word]);
       setScore(prev => {
         setScoreKey(k => k + 1);
@@ -130,7 +142,7 @@ export default function RelayGame({ auth }) {
       setInput("");
       showToast(`+${word.length} pts`, "success");
       inputRef.current?.focus();
-    }, 300);
+    }
   };
 
   const handleKeyPress = (key) => {
@@ -362,6 +374,7 @@ export default function RelayGame({ auth }) {
           {/* Submit */}
           <button
             onClick={submitWord}
+            disabled={submitting}
             style={{
               width: "100%", background: C.gold, border: "none",
               borderRadius: 14, padding: 18, fontSize: 14, fontWeight: 800,
